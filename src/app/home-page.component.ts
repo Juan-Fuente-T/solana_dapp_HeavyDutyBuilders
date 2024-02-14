@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
+import { FeaturesSectionComponent } from './features-section.component';
+import { HeroSectionComponent } from './hero-section.component';
 
 @Component({
   selector: 'dapp-solana-juan-fuente-home-page',
   template: `
-    <section>
-      <h2 class="text-center text-3xl">Home Page></h2>
-      <p class="text-center">Welcome to the Juan Fuente DApp!</p>
-    </section>
+      <dapp-solana-juan-fuente-hero-section>
+      <dapp-solana-juan-fuente-features-section></dapp-solana-juan-fuente-features-section>
 `,
   standalone: true,
+  imports: [FeaturesSectionComponent, HeroSectionComponent]
 })
 export class HomePageComponent { }

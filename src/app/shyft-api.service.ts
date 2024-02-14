@@ -6,7 +6,8 @@ import { map, of } from 'rxjs';
 export class ShyftApiService {
   private readonly _httpClient = inject(HttpClient);
   private readonly _headers = { 'x-api-key': 'U6FB9bi1t3_DiqTv' }
-  private readonly _mint = 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v';
+  //private readonly _mint = 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v';
+  private readonly _mint = '7EYnhQoR9YM3N7UoaKRoA44Uy8JeaZV3qyouov87awMs';
 
   getAccount(publicKey: string | undefined | null) {
     if (!publicKey) {

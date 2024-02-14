@@ -8,10 +8,10 @@ export const appRoutes: Route[] = [{
 {
   path: 'settings',
   loadComponent: () =>
-    import('./settings-page.components').then((m) => m.SettingsPageComponent),
+    import('./settings-page.component').then((m) => m.SettingsPageComponent),
 },
 {
   path: '**',
-  redirectTo: ''
+  redirectTo: '',
 }
 ];
