@@ -2,20 +2,20 @@ import { DecimalPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatAnchor } from '@angular/material/button';
-//import { RouterLink, RouterOutlet } from '@angular/router';
-import { RouterModule } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
+//import { RouterModule } from '@angular/router';
 import { WalletStore } from '@heavy-duty/wallet-adapter';
 import { HdWalletMultiButtonComponent } from '@heavy-duty/wallet-adapter-material';
 import { computedAsync } from 'ngxtension/computed-async';
 import { ShyftApiService } from './shyft-api.service';
 @Component({
   standalone: true,
-  //imports: [RouterOutlet,
-  //RouterLink,
-  imports: [RouterModule,
+  imports: [RouterOutlet,
+    RouterLink,
+    //imports: [RouterModule,
     DecimalPipe,
     MatAnchor,
-    HdWalletMultiButtonComponent,
+    HdWalletMultiButtonComponent
   ],
   selector: 'dapp-solana-juan-fuente-root',
   template: `

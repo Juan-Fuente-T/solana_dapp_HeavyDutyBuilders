@@ -5,10 +5,10 @@ import { HeroSectionComponent } from './hero-section.component';
 @Component({
   selector: 'dapp-solana-juan-fuente-home-page',
   template: `
-      <dapp-solana-juan-fuente-hero-section>
+      <dapp-solana-juan-fuente-hero-section></dapp-solana-juan-fuente-hero-section>
       <dapp-solana-juan-fuente-features-section></dapp-solana-juan-fuente-features-section>
 `,
-  standalone: true,
-  imports: [FeaturesSectionComponent, HeroSectionComponent]
+  imports: [HeroSectionComponent, FeaturesSectionComponent],
+  standalone: true
 })
 export class HomePageComponent { }
