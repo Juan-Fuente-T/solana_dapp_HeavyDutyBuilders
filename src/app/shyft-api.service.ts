@@ -11,7 +11,7 @@ export class ShyftApiService {
 
   private readonly _mint = '7EYnhQoR9YM3N7UoaKRoA44Uy8JeaZV3qyouov87awMs';
 
-  getAccount(publicKey: string | undefined | null) {
+  getAccount(publicKey: string | undefined | null, mint: string) {
     if (!publicKey) {
       return of(null);
     }
@@ -20,7 +20,7 @@ export class ShyftApiService {
 
     url.searchParams.set('network', 'mainnet-beta');
     url.searchParams.set('wallet', publicKey);
-    url.searchParams.set('token', this._mint);
+    url.searchParams.set('token', mint);
 
     return this._httpClient
       .get<{
@@ -49,8 +49,12 @@ export class ShyftApiService {
             info: {
               receiver: string;
               amount: number;
-            };
-          };
+            }
+          }
+          /*.get<{
+            result: {
+              type: string;
+              timestamp: string;*/
         }[];
       }>(url.toString(), { headers: this._header })
       .pipe(map((response) => response.result));
