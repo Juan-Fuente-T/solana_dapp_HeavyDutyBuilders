@@ -5,19 +5,18 @@ import { MatTableModule } from '@angular/material/table';
 import { WalletStore } from '@heavy-duty/wallet-adapter';
 import { computedAsync } from 'ngxtension/computed-async';
 import { ShyftApiService } from './shyft-api.service';
-
 @Component({
   selector: 'dapp-solana-juan-fuente-transactions-section',
   imports: [MatTableModule, MatCard],
   standalone: true,
   template: `
-    <mat-card class="w-[500px] px-4 py-8">
+    <mat-card class="mx-auto  w-[700px] px-4 py-8">
       <h2 class="text-center text-3xl mb-4">Historial de Transacciones</h2>
 
       @if (!transactions()) {
-        <p class="text-center">Conecta tu wallet para ver las transacciones.</p>
+        <p class="text-center text-xl text-slate-700  px-32 py-8 bg-slate-200 rounded-[4px]" >Conecta tu wallet para ver las transacciones.</p>
       } @else if (transactions()?.length === 0) {
-        <p class="text-center">No hay transacciones disponibles.</p>
+        <p class="text-center text-xl ">No hay transacciones disponibles.</p>
       } @else {
         <table mat-table [dataSource]="transactions() ?? []">
           <ng-container matColumnDef="type">
@@ -30,6 +29,11 @@ import { ShyftApiService } from './shyft-api.service';
             <td mat-cell *matCellDef="let element">{{ element.timestamp}}</td>
           </ng-container>
 
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+          </ng-container>
+
         <!--
         result: {
           type: string;
@@ -40,7 +44,7 @@ import { ShyftApiService } from './shyft-api.service';
               amount: number;-->
           
 
-
+          <!--<ng-container *ngIf="!element.transaction">
           <ng-container matColumnDef="receiver">
             <th mat-header-cell *matHeaderCellDef>Receiver</th>
             <td mat-cell *matCellDef="let element">{{ element.actions?.info?.receiver }}</td>
@@ -49,6 +53,7 @@ import { ShyftApiService } from './shyft-api.service';
             <th mat-header-cell *matHeaderCellDef>Amount</th>
             <td mat-cell *matCellDef="let element">{{ element.actions?.info?.amount}}</td>
           </ng-container>
+          </ng-container>-->
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
@@ -57,6 +62,8 @@ import { ShyftApiService } from './shyft-api.service';
     </mat-card>
   `,
 })
+//entonces deberias tener un if o algo para verificar
+//si es una transferencia, entonces haces transaction.actions[0].info.amount.. si no, 
 export class TransactionsSectionComponent {
   private readonly _shyftApiService = inject(ShyftApiService);
   private readonly _walletStore = inject(WalletStore);
@@ -66,5 +73,6 @@ export class TransactionsSectionComponent {
     this._shyftApiService.getTransactions(this._publicKey()?.toBase58()),
   );
 
-  displayedColumns: string[] = ['type', 'timestamp', 'receiver', 'amount'];
+  //displayedColumns: string[] = ['type', 'timestamp', 'receiver', 'amount'];
+  displayedColumns: string[] = ['type', 'timestamp', 'status'];
 }

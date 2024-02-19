@@ -29,6 +29,8 @@ export class ShyftApiService {
       .pipe(map((response) => response.result));
   }
 
+
+
   getTransactions(publicKey: string | undefined | null) {
     if (!publicKey) {
       return of(null);
@@ -38,19 +40,22 @@ export class ShyftApiService {
 
     url.searchParams.set('network', 'mainnet-beta');
     url.searchParams.set('account', publicKey);
-    url.searchParams.set('tx-num', '5');
+    url.searchParams.set('tx-num', '10');
 
     return this._httpClient
       .get<{
         result: {
-          type: string;
+          /*type: string;
           timestamp: string;
           actions: {
             info: {
               receiver: string;
               amount: number;
             }
-          }
+          }*/
+          status: string;
+          type: string;
+          timestamp: string
           /*.get<{
             result: {
               type: string;
