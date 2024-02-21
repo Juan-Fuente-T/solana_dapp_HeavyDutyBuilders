@@ -1,5 +1,5 @@
 import { provideHttpClient } from '@angular/common/http';
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
@@ -12,6 +12,6 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideWalletAdapter(),
     provideHttpClient(),
-    MatDialogModule,
+    importProvidersFrom([MatDialogModule]),
   ],
 };

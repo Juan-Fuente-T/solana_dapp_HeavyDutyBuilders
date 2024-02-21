@@ -5,11 +5,12 @@ import { MatAnchor } from '@angular/material/button';
 import { RouterLink, RouterOutlet } from '@angular/router';
 //import { RouterModule } from '@angular/router';
 import { MatCard } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
 import { WalletStore } from '@heavy-duty/wallet-adapter';
 import { HdWalletMultiButtonComponent } from '@heavy-duty/wallet-adapter-material';
 import { computedAsync } from 'ngxtension/computed-async';
 import { ShyftApiService } from './shyft-api.service';
-
+import { TransferModalComponent } from './transfer-modal.component';
 @Component({
 
   standalone: true,
@@ -54,7 +55,9 @@ import { ShyftApiService } from './shyft-api.service';
           </li>
         </ul>
       </nav>
-      
+      <button (click)="onTransfer()">
+        Transferir
+    </button>
     </header>
     <main>
       <router-outlet></router-outlet>
@@ -66,6 +69,7 @@ export class AppComponent {
   private readonly _shyftApiService = inject(ShyftApiService);
   private readonly _walletStore = inject(WalletStore);
   private readonly _publicKey = toSignal(this._walletStore.publicKey$);
+  private readonly _matDialog = inject(MatDialog);
 
 
   /*ngOnInit(): void {
@@ -79,6 +83,11 @@ export class AppComponent {
     ),
     { requireSync: true },
   );
+
+  onTransfer() {
+    console.log('Hola mundo!');
+    this._matDialog.open(TransferModalComponent)
+  }
 
   /*solBalance() {
     // Obtener el balance de SOL de manera asíncrona

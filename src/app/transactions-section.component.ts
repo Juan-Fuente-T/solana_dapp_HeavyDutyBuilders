@@ -27,7 +27,7 @@ import { ShyftApiService } from './shyft-api.service';
 
           <ng-container matColumnDef="timestamp">
             <th mat-header-cell *matHeaderCellDef>Timestamp</th>
-            <td mat-cell *matCellDef="let element">{{ element.timestamp | date: 'dd/MM/yy' HH:mm:ss' }}</td></ng-container>
+            <td mat-cell *matCellDef="let element">{{ element.timestamp | date: 'dd/MM/yy HH:mm:ss' }}</td></ng-container>
 
           <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef>Status</th>
