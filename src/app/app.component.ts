@@ -25,7 +25,8 @@ import { ShyftApiService } from './shyft-api.service';
   selector: 'dapp-solana-juan-fuente-root',
   template: `
     <header class="px-16 pt-24 pb-8 relative">
-      <h1 class="text-center text-5xl mb-4">This is the bank that STEALS your money</h1>
+      <h1 class="text-center text-5xl mb-4">Solana Shift Service</h1>
+      <h1 class="text-center text-4xl mb-4">Make your life easy, send yor money right</h1>
 
       <div class="flex justify-center mb-4">
         <hd-wallet-multi-button></hd-wallet-multi-button>

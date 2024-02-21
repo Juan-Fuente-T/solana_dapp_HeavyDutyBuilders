@@ -29,6 +29,23 @@ export class ShyftApiService {
       .pipe(map((response) => response.result));
   }
 
+  getSolBalance(publicKey2: string | undefined | null) {
+  
+    if (!publicKey2) {
+      return of(null);
+    }
+    
+    const url = new URL('https://api.shyft.to/sol/v1/wallet/balance');
+
+    url.searchParams.set('network', 'mainnet-beta');
+    url.searchParams.set('wallet', publicKey2);
+    
+
+    return this._httpClient.get<{
+      result: { balance: number };
+    }>(url.toString(), { headers: this._header })
+    .pipe(map((response) => response.result));
+  }
 
 
   getTransactions(publicKey: string | undefined | null) {

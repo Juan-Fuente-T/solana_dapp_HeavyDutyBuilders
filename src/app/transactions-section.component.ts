@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatCard } from '@angular/material/card';
@@ -7,7 +8,7 @@ import { computedAsync } from 'ngxtension/computed-async';
 import { ShyftApiService } from './shyft-api.service';
 @Component({
   selector: 'dapp-solana-juan-fuente-transactions-section',
-  imports: [MatTableModule, MatCard],
+  imports: [MatTableModule, MatCard, DatePipe],
   standalone: true,
   template: `
     <mat-card class="mx-auto  w-[700px] px-4 py-8">
@@ -26,8 +27,7 @@ import { ShyftApiService } from './shyft-api.service';
 
           <ng-container matColumnDef="timestamp">
             <th mat-header-cell *matHeaderCellDef>Timestamp</th>
-            <td mat-cell *matCellDef="let element">{{ element.timestamp}}</td>
-          </ng-container>
+            <td mat-cell *matCellDef="let element">{{ element.timestamp | date: 'dd/MM/yy' HH:mm:ss' }}</td></ng-container>
 
           <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef>Status</th>

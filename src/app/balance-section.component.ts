@@ -24,14 +24,24 @@ import { ShyftApiService } from './shyft-api.service';
           <p class="text-xl font-bold">{{ account()?.balance }}</p>
         </div>
       </mat-card>
-     
+      
       <mat-card class="w-4/5 px-4 py-8">
         <!-- Para mostrar el balance de SOL -->
+        <div class="flex justify-center items-center gap-2">
+          <img src="https://i.ibb.co/Wtb15V7/solana-sol-seeklogo.png" class="w-8 h-8"/>
+          <h3 class="text-center text-xl text-slate-700  font-bold mr-8 px-3 py-1.2 bg-slate-200 rounded-[4px] "> SOL</h3>
+            <p class="text-xl font-bold">
+              {{ solAccount()?.balance }}
+            </p>
+        </div>
+      </mat-card>
+      <mat-card class="w-4/5 px-4 py-8">
+        <!-- Para mostrar el balance de Usdc -->
         <div class="flex justify-center items-center gap-2">
           <img [src]="usdcAccount()?.info?.image" class="w-8 h-8"/>
           <h3 class="text-center text-xl text-slate-700  font-bold mr-8 px-3 py-1.2 bg-slate-200 rounded-[4px] "> USDC </h3>
             <p class="text-xl font-bold">
-              {{ usdcAccount()?.balance  }}
+              {{ usdcAccount()?.balance }}
             </p>
         </div>
       </mat-card>
@@ -53,6 +63,21 @@ export class BalanceSectionComponent {
       , 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v'
     ),
   );
+  readonly solAccount = computedAsync(
+    () => this._shyftApiService.getSolBalance(this._publicKey()?.toBase58()
+    ),
+  );
 
-
+  readonly formattedBalanceUsdc = computedAsync(() => {
+    const balance = this.usdcAccount()?.balance ?? 0;
+    return (balance / 1e9).toFixed(8);
+  });
+  readonly formattedBalanceSilly = computedAsync(() => {
+    const balance = this.account()?.balance ?? 0;
+    return (balance / 1e9).toFixed(8);
+  });
+  readonly formattedBalance = computedAsync(() => {
+    const balance = this.solAccount()?.balance ?? 0;
+    return (balance / 1e9).toFixed(8);
+  });
 }
