@@ -1,15 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { map, of } from 'rxjs';
-
+import { API_KEY } from '../config';
+console.log("API-KEY: ", API_KEY);
 @Injectable({ providedIn: 'root' })
 export class ShyftApiService {
   private readonly _httpClient = inject(HttpClient);
-  private readonly _header = { 'x-api-key': 'U6FB9bi1t3_DiqTv' }
+  private readonly _header = { 'x-api-key': API_KEY }
   //private readonly _mint = 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v';
   //private readonly mint = '7EYnhQoR9YM3N7UoaKRoA44Uy8JeaZV3qyouov87awMs';
+  //private readonly _mint = '7EYnhQoR9YM3N7UoaKRoA44Uy8JeaZV3qyouov87awMs';
 
-  private readonly _mint = '7EYnhQoR9YM3N7UoaKRoA44Uy8JeaZV3qyouov87awMs';
+ getEndpoint(){
+  const url = new URL('https://rpc.shyft.to');
+  url.searchParams.set('api_key', API_KEY);
+  return url.toString();
+ }
 
   getAccount(publicKey: string | undefined | null, mint: string) {
     if (!publicKey) {

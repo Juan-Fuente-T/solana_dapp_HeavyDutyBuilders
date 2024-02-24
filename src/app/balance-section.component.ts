@@ -1,14 +1,16 @@
 import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { MatButton } from '@angular/material/button';
 import { MatCard } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { WalletStore } from '@heavy-duty/wallet-adapter';
 import { computedAsync } from 'ngxtension/computed-async';
 import { ShyftApiService } from './shyft-api.service';
-
+import { TransferModalComponent } from './transfer-modal.component';
 @Component({
   selector: 'dapp-solana-juan-fuente-balance-section',
-  imports: [MatTableModule, MatCard],
+  imports: [MatTableModule, MatCard, MatButton],
   standalone: true,
   template: `
       @if (!account()) {
@@ -22,6 +24,11 @@ import { ShyftApiService } from './shyft-api.service';
           <img [src]="account()?.info?.image" class="w-8 h-8" />
           <h3 class="text-center text-xl text-slate-700  font-bold mr-8 px-3 py-1.2 bg-slate-200 rounded-[4px] "> SILLY </h3>
           <p class="text-xl font-bold">{{ account()?.balance }}</p>
+          <footer class="flez justify-center mt-4">
+          <button mat-raised-button color="primary" (click)="onTransfer()">
+            Transferir fondos
+          </button>
+  </footer>
         </div>
       </mat-card>
       
@@ -45,15 +52,17 @@ import { ShyftApiService } from './shyft-api.service';
             </p>
         </div>
       </mat-card>
-      </div>
-    }
+    </div>
+  }
+
   `,
 })
 export class BalanceSectionComponent {
   private readonly _shyftApiService = inject(ShyftApiService);
   private readonly _walletStore = inject(WalletStore);
   private readonly _publicKey = toSignal(this._walletStore.publicKey$);
-
+  private readonly _matDialog = inject(MatDialog);
+  
   readonly account = computedAsync(() =>
     this._shyftApiService.getAccount(this._publicKey()?.toBase58(), '7EYnhQoR9YM3N7UoaKRoA44Uy8JeaZV3qyouov87awMs'
     ),
@@ -68,7 +77,12 @@ export class BalanceSectionComponent {
     ),
   );
 
-  readonly formattedBalanceUsdc = computedAsync(() => {
+  onTransfer() {
+    this._matDialog.open(TransferModalComponent);
+  }
+
+
+  /*readonly formattedBalanceUsdc = computedAsync(() => {
     const balance = this.usdcAccount()?.balance ?? 0;
     return (balance / 1e9).toFixed(8);
   });
@@ -79,5 +93,5 @@ export class BalanceSectionComponent {
   readonly formattedBalance = computedAsync(() => {
     const balance = this.solAccount()?.balance ?? 0;
     return (balance / 1e9).toFixed(8);
-  });
+  });*/
 }

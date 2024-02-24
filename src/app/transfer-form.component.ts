@@ -1,10 +1,9 @@
-import { Component } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { Component, EventEmitter, Output } from "@angular/core";
+import { FormsModule, NgForm } from "@angular/forms";
 import { MatButton } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIcon } from "@angular/material/icon";
 import { MatInput } from "@angular/material/input";
-
 export interface TransferFormModel {
   memo: string | null;
   amount: number | null;
@@ -20,9 +19,10 @@ export interface TransferFormPayload {
   selector: 'dapp-solana-juan-fuente-transfer-form',
   template: `
   <div class="px-8 py-16">
-    <form #form="ngForm" >
-      <mat-form-field appearance="fill" >
-          <mat-label>Concepto</mat-label>
+  <!--h3 class="text-center text-xl   font-bold mr-8 px-3 py-1.2 bg-slate-200 rounded-[4px] "-->
+    <form #form="ngForm" class="w-full rounded-[8px] text-slate-200 " (ngSubmit)="onSubmitForm(form, mint)">
+      <mat-form-field appearance="fill" class="w-full mb-4">
+          <mat-label class="text-slate-200">Concepto</mat-label>
           <input
           name="memo"
           matInput
@@ -33,7 +33,7 @@ export interface TransferFormPayload {
           #memoControl="ngModel"
           />
           <mat-icon matSuffix>description</mat-icon>
-          <mat-hint>Debe ser el motivo de la transferencia</mat-hint>
+
           @if (form.submitted && memoControl.errors){
             <mat-error>
               @if(memoControl.errors['required']){
@@ -46,8 +46,8 @@ export interface TransferFormPayload {
          
 
         </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Monto</mat-label>
+        <mat-form-field appearance="fill" class="w-full mb-4">
+          <mat-label class="text-slate-200">Monto</mat-label>
           <input
             name="amount"
             matInput
@@ -68,12 +68,12 @@ export interface TransferFormPayload {
           }
             </mat-error>
         }@else{
-          <mat-hint>Deber ser el motivo de la transferencia</mat-hint>
+          <mat-hint>Debe ser la cantidad de la transferencia</mat-hint>
         }
          
         </mat-form-field>  
-        <mat-form-field appearance="fill">
-          <mat-label>Destinatario</mat-label>
+        <mat-form-field appearance="fill" class="w-full mb-4">
+          <mat-label class="text-slate-200">Destinatario</mat-label>
           <input
             name="receiverAddress"
             matInput
@@ -91,9 +91,12 @@ export interface TransferFormPayload {
           }
             </mat-error>
         }@else{
-          <mat-hint>Deber ser una wallet de Solana</mat-hint>
+          <mat-hint>Debe ser una wallet de Solana</mat-hint>
         }
         </mat-form-field>  
+        <footer class="flex justify-center">
+          <button type="submit" mat-raised-button color="primary">Enviar</button>
+        </footer>
     </form>
   </div>
 
@@ -106,5 +109,18 @@ export class TransferFormComponent {
     memo: null,
     amount: null,
     receiverAddress: null
+  };
+  @Output() readonly submitForm = new EventEmitter<TransferFormPayload>();
+
+  onSubmitForm(form: NgForm) {
+    if (form.invalid || this.model.amount === null || this.model.memo === null || this.model.receiverAddress === null) {
+      console.error('El formulario no es válido')
+    } else {
+      this.submitForm.emit({
+        memo: this.model.memo,
+        amount: this.model.amount,
+        receiverAddress: this.model.receiverAddress
+      });
+    }
   }
 }

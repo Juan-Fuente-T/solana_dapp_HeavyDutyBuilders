@@ -1,16 +1,14 @@
 import { CommonModule, DecimalPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { Component, OnInit, inject } from '@angular/core';
 import { MatAnchor } from '@angular/material/button';
 import { RouterLink, RouterOutlet } from '@angular/router';
 //import { RouterModule } from '@angular/router';
 import { MatCard } from '@angular/material/card';
-import { MatDialog } from '@angular/material/dialog';
-import { WalletStore } from '@heavy-duty/wallet-adapter';
+import { ConnectionStore, injectPublicKey } from '@heavy-duty/wallet-adapter';
 import { HdWalletMultiButtonComponent } from '@heavy-duty/wallet-adapter-material';
-import { computedAsync } from 'ngxtension/computed-async';
 import { ShyftApiService } from './shyft-api.service';
-import { TransferModalComponent } from './transfer-modal.component';
+
+
 @Component({
 
   standalone: true,
@@ -55,9 +53,7 @@ import { TransferModalComponent } from './transfer-modal.component';
           </li>
         </ul>
       </nav>
-      <button (click)="onTransfer()">
-        Transferir
-    </button>
+
     </header>
     <main>
       <router-outlet></router-outlet>
@@ -65,30 +61,28 @@ import { TransferModalComponent } from './transfer-modal.component';
   `,
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit{
   private readonly _shyftApiService = inject(ShyftApiService);
-  private readonly _walletStore = inject(WalletStore);
-  private readonly _publicKey = toSignal(this._walletStore.publicKey$);
-  private readonly _matDialog = inject(MatDialog);
-
+  //private readonly _walletStore = inject(WalletStore);
+  private readonly _publicKey = injectPublicKey();
+  private readonly _connectionStore = inject(ConnectionStore)
 
   /*ngOnInit(): void {
     this._shyftApiService.getTransactions(this._publicKey()?.toBase58()).subscribe(data => {
       this.transactions = data;
     });
   }*/
-  readonly account = computedAsync(
+  /*readonly account = computedAsync(
     () => this._shyftApiService.getAccount(this._publicKey()?.toBase58()
       , '7EYnhQoR9YM3N7UoaKRoA44Uy8JeaZV3qyouov87awMs'
     ),
     { requireSync: true },
-  );
-
-  onTransfer() {
-    console.log('Hola mundo!');
-    this._matDialog.open(TransferModalComponent)
+  );*/
+  ngOnInit(){
+    this._connectionStore.setEndpoint(this._shyftApiService.getEndpoint())
   }
 
+}
   /*solBalance() {
     // Obtener el balance de SOL de manera asíncrona
     const solAccount = computedAsync(
@@ -115,7 +109,6 @@ export class AppComponent {
       }
     );
   }*/
-}
 
 //RESPUESTA API COLECCION DE NFTs
 
