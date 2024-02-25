@@ -6,9 +6,9 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 //import { RouterModule } from '@angular/router';
 import { MatCard } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
-import { WalletStore } from '@heavy-duty/wallet-adapter';
+import { ConnectionStore, WalletStore } from '@heavy-duty/wallet-adapter';
 import { HdWalletMultiButtonComponent } from '@heavy-duty/wallet-adapter-material';
-import { computedAsync } from 'ngxtension/computed-async';
+//import { computedAsync } from 'ngxtension/computed-async';
 import { ShyftApiService } from './shyft-api.service';
 import { TransferModalComponent } from './transfer-modal.component';
 @Component({
@@ -55,9 +55,9 @@ import { TransferModalComponent } from './transfer-modal.component';
           </li>
         </ul>
       </nav>
-      <button (click)="onTransfer()">
+     <!--<button (click)="onTransfer()">
         Transferir
-    </button>
+    </button>-->
     </header>
     <main>
       <router-outlet></router-outlet>
@@ -70,6 +70,7 @@ export class AppComponent {
   private readonly _walletStore = inject(WalletStore);
   private readonly _publicKey = toSignal(this._walletStore.publicKey$);
   private readonly _matDialog = inject(MatDialog);
+  private readonly _connectionStore = inject(ConnectionStore);
 
 
   /*ngOnInit(): void {
@@ -77,16 +78,19 @@ export class AppComponent {
       this.transactions = data;
     });
   }*/
-  readonly account = computedAsync(
+  /*readonly account = computedAsync(
     () => this._shyftApiService.getAccount(this._publicKey()?.toBase58()
       , '7EYnhQoR9YM3N7UoaKRoA44Uy8JeaZV3qyouov87awMs'
     ),
     { requireSync: true },
-  );
+  );*/
 
-  onTransfer() {
-    console.log('Hola mundo!');
-    this._matDialog.open(TransferModalComponent)
+  ngOnInit() {
+    this._connectionStore.setEndpoint(this._shyftApiService.getEndpoint());
+  }
+
+  onTransfer(){
+    this._matDialog.open(TransferModalComponent);
   }
 
   /*solBalance() {

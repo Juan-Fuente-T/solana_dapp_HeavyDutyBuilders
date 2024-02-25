@@ -1,15 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { map, of } from 'rxjs';
+import { config } from '../config';
 
 @Injectable({ providedIn: 'root' })
 export class ShyftApiService {
   private readonly _httpClient = inject(HttpClient);
-  private readonly _header = { 'x-api-key': 'U6FB9bi1t3_DiqTv' }
+  private readonly _header = { 'x-api-key': config.shyftApiKey }
   //private readonly _mint = 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v';
   //private readonly mint = '7EYnhQoR9YM3N7UoaKRoA44Uy8JeaZV3qyouov87awMs';
 
-  private readonly _mint = '7EYnhQoR9YM3N7UoaKRoA44Uy8JeaZV3qyouov87awMs';
+  //private readonly _mint = '7EYnhQoR9YM3N7UoaKRoA44Uy8JeaZV3qyouov87awMs';
+  
+  getEndpoint(){
+    const url = new URL('https://rpc.shyft.to');
+    url.searchParams.set('api_key', config.shyftApiKey);
+    return url.toString();
+   }
 
   getAccount(publicKey: string | undefined | null, mint: string) {
     if (!publicKey) {
@@ -81,7 +88,31 @@ export class ShyftApiService {
       }>(url.toString(), { headers: this._header })
       .pipe(map((response) => response.result));
   }
+  
+  getAllTokens(publicKey: string | undefined | null) {
+    if (!publicKey) {
+      return of(null);
+    }
+
+    const url = new URL('https://api.shyft.to/sol/v1/wallet/all_tokens');
+
+    url.searchParams.set('network', 'mainnet-beta');
+    url.searchParams.set('wallet', publicKey);
+
+    return this._httpClient
+      .get<{
+        result: {
+          address: string;
+          balance: number;
+          info: { name: string; symbol: string; image: string };
+        }[];
+      }>(url.toString(), {
+        headers: this._header,
+      })
+      .pipe(map((response) => response.result));
+  }
 }
+
 
 
 /*
