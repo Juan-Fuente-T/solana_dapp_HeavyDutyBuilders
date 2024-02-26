@@ -12,7 +12,7 @@ import { ShyftApiService } from './shyft-api.service';
   standalone: true,
   template: `
     <mat-card class="mx-auto  w-[700px] px-4 py-8">
-      <h2 class="text-center text-3xl mb-4">Historial de Transacciones</h2>
+      <h2 class="text-center text-3xl text-slate-200 mb-4">Historial de Transacciones</h2>
 
       @if (!transactions()) {
         <p class="text-center text-xl text-slate-700  px-32 py-8 bg-slate-200 rounded-[4px]" >Conecta tu wallet para ver las transacciones.</p>

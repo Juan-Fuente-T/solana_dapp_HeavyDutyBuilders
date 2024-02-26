@@ -15,7 +15,7 @@ import {
   selector: 'dapp-solana-juan-fuente-transfer-modal',
   template: `
     <div class="px-4 pb-8 pt-16">
-      <h2 class="text-3xl text-center mb-8">Transferir Fondos</h2>
+      <h2 class="text-3xl text-center text-slate-200 mb-8">Transferir Fondos</h2>
 
       <dapp-solana-juan-fuente-transfer-form
         [disabled]="isRunning()"
@@ -84,7 +84,8 @@ export class TransferModalComponent {
             'Cerrar',
             {
               duration: 4000,
-              horizontalPosition: 'end',
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom',
             },
           );
           this._matDialogRef.close();
@@ -96,7 +97,8 @@ export class TransferModalComponent {
             'Cerrar',
             {
               duration: 4000,
-              horizontalPosition: 'end',
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom',
             },
           );
         },

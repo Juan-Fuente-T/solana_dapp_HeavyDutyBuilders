@@ -27,9 +27,10 @@ export interface TransferFormPayload {
 @Component({
   selector: 'dapp-solana-juan-fuente-transfer-form',
   template: `
-    <form class="w-[400px]" #form="ngForm" (ngSubmit)="onSubmit(form)">
+  <div  >
+    <form class="w-full" #form="ngForm" (ngSubmit)="onSubmit(form)">
       <mat-form-field class="w-full mb-4">
-        <mat-label>Moneda</mat-label>
+        <mat-label class="text-slate-200 font-bold">Moneda</mat-label>
         <mat-select
           [(ngModel)]="model.token"
           name="token"
@@ -57,8 +58,8 @@ export interface TransferFormPayload {
         }
       </mat-form-field>
 
-      <mat-form-field appearance="fill" >
-          <mat-label>Concepto</mat-label>
+      <mat-form-field appearance="fill" class="w-full mb-4">
+          <mat-label class="text-slate-200 font-bold">Concepto</mat-label>
           <input
           name="memo"
           matInput
@@ -74,16 +75,16 @@ export interface TransferFormPayload {
            @if (form.submitted && memoControl.errors){
             <mat-error>
               @if(memoControl.errors['required']){
-                El motivo es obligatorio
+                El concepto es obligatorio
               }
             </mat-error>
         }@else{
-          <mat-hint>Deber ser el motivo de la transferencia</mat-hint>
+          <mat-hint>Debe ser el motivo de la transferencia</mat-hint>
         }
          
         </mat-form-field>  
-        <mat-form-field appearance="fill">
-          <mat-label>Destinatario</mat-label>
+        <mat-form-field appearance="fill"class="w-full mb-4" >
+          <mat-label class="text-slate-200 font-bold">Destinatario</mat-label>
           <input
             name="receiverAddress"
             matInput
@@ -107,8 +108,8 @@ export interface TransferFormPayload {
         }
         </mat-form-field>  
         
-        <mat-form-field appearance="fill">
-          <mat-label>Monto</mat-label>
+        <mat-form-field appearance="fill" class="w-full mb-4">
+          <mat-label class="text-slate-200 font-bold">Monto</mat-label>
         <input
         name="amount"
         matInput
@@ -156,8 +157,8 @@ export interface TransferFormPayload {
           Cancelar
         </button>
       </footer>
-
       </form>
+      </div>
   `,
   standalone: true,
   imports: [FormsModule, MatFormFieldModule, MatInput, MatIcon, MatButton, MatSelect, MatOption]
@@ -186,25 +187,41 @@ export class TransferFormComponent {
   }
 
   onSubmit(form: NgForm) {
-    if (
-      form.invalid ||
-      this.model.memo === null ||
-      this.model.receiverAddress === null ||
-      this.model.amount === null ||
-      this.model.token === null
-    ) {
-      this._matSnackBar.open('⚠️ El formulario no es válido.', 'Cerrar', {
-        duration: 4000,
-        horizontalPosition: 'end',
+    if (form.invalid){
+      if (this.model.memo === null 
+      ) {
+        this._matSnackBar.open('⚠️ Es necesaria una descripción.', 'Cerrar', {
+          duration: 4000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
       });
-    } else {
-      this.sendTransfer.emit({
-        amount: this.model.amount * 10 ** 9,
-        receiverAddress: this.model.receiverAddress,
-        memo: this.model.memo,
-        mintAddress: this.model.token.address,
+      } else if(this.model.receiverAddress === null){
+        this._matSnackBar.open('⚠️ Es necesaria una una dirección válida.', 'Cerrar', {
+          duration: 4000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
       });
-    }
+      } else if( this.model.amount === null){
+        this._matSnackBar.open('⚠️ Es necesaria una cantidad mayor que 0.', 'Cerrar', {
+          duration: 4000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+      });
+      } else if(this.model.token === null){
+        this._matSnackBar.open('⚠️ Es necesario seleccionar un token.', 'Cerrar', {
+          duration: 4000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+      });
+      } else {
+        this.sendTransfer.emit({
+          amount: this.model.amount * 10 ** 9,
+          receiverAddress: this.model.receiverAddress,
+          memo: this.model.memo,
+          mintAddress: this.model.token.address,
+        });
+      }
+    } 
   }
 
   onCancel() {
