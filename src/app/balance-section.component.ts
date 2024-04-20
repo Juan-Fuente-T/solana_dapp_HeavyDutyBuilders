@@ -15,7 +15,7 @@ import { TransferModalComponent } from './transfer-modal.component';
   standalone: true,
   template: `
       @if (!account()) {
-        <p class="text-center text-l font-bold text-slate-700 bg-slate-200 p-4 h-12 mx-auto w-2/5 rounded-[4px] border-none">Conecta tu wallet para ver tu balance.</p>
+        <p class="text-center text-l font-bold text-slate-700 bg-slate-200 p-4 h-12 mx-auto w-2/5 rounded-[4px] border-none">Conecta tu wallet para ver tu balance</p>
         
       } @else {
         <div class="flex flex-col justify-center items-center">
@@ -30,7 +30,7 @@ import { TransferModalComponent } from './transfer-modal.component';
       
       <mat-card class="w-4/5 px-4 py-8">
         <div>
-          <h2 class="text-center text-xl text-slate-700 font-bold  mb-8 px-2 py-1.5 bg-slate-200 rounded-[4px]">Tu balance en sol (necesario para las comisiones) </h2>
+          <h2 class="text-center text-xl text-slate-700 font-bold  mb-8 px-2 py-1.5 bg-slate-200 rounded-[4px]">Balance de Sol (necesario para las comisiones) </h2>
           <!-- Para mostrar el balance de SOL -->
         <div class="flex justify-center items-center gap-2">
           <img src="https://i.ibb.co/Wtb15V7/solana-sol-seeklogo.png" class="w-8 h-8"/>
@@ -54,7 +54,7 @@ import { TransferModalComponent } from './transfer-modal.component';
       <mat-card class="w-4/5 px-4 py-8">
         <div class="flex justify-center items-center gap-2">
           <div *ngIf="allTokens() as tokens">
-            <h2 class="text-center text-xl text-slate-700 font-bold mr-8 mb-8 px-3 py-1.5 bg-slate-200 rounded-[4px]">Los tokens de los que dispones </h2>
+            <h2 class="text-center text-xl text-slate-700 font-bold mr-8 mb-8 px-3 py-1.5 bg-slate-200 rounded-[4px]">Balance de tokens</h2>
               <div *ngFor="let token of tokens">
                 <div class="flex items-center gap-2 text-center text-xl text-slate-700 font-bold mr-8 mb-8 px-4 py-2 bg-slate-200 rounded-[4px]">
                   <img [src]="token.info.image" class="rounded-full w-8 h-8" />

@@ -28,12 +28,12 @@ import { TransferModalComponent } from './transfer-modal.component';
     <header class=" px-4 py-4 pt-4 pb-8 relative">
     <div class="flex flex-direction-row justify-between items-center">
     <img src="assets/logo.png" alt="Logo" class="w-80 h-16">
+    <div class="flex justify-center mb-4">
+      <hd-wallet-multi-button class="mt-4 mb-4"></hd-wallet-multi-button>
+    </div>
+  </div> 
       <h1 class="text-center text-3xl text-slate-200 gap-4">Solana Shift Token Service</h1>
-      <div class="flex justify-center mb-4">
-        <hd-wallet-multi-button class="mt-4 mb-4"></hd-wallet-multi-button>
-      </div>
-    </div> 
-      <h1 class="text-center text-slate-200 text-4xl m-8">Make your life easy, send yor money right</h1>
+      <h1 class="text-center text-slate-200 text-4xl m-8">Make your life easy, send your money right</h1>
 
 
 
@@ -44,9 +44,6 @@ import { TransferModalComponent } from './transfer-modal.component';
           </li>      
           <li>
             <a [routerLink]="['transactions']" mat-raised-button>Transactions</a>
-          </li>
-          <li>
-            <a [routerLink]="['settings']" mat-raised-button>Settings</a>
           </li>
         </ul>
       </nav>
