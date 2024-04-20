@@ -1,4 +1,35 @@
 # DappSolanaJuanFuente
+![Logo_Solana_STS](https://github.com/Juan-Fuente-T/solana_dapp_HeavyDutyBuilders/assets/127140423/b5a22d13-a32b-43bd-abb4-9568fe7f48e0)
+
+This app allows you to manage your Sol and tokens balances on the Solana network and make transfers quickly and easily. It also allows you to view your transaction history.
+--------------------------------
+
+
+Esta app te permite gestionar tus balances de Sol y tokens en la red Solana y hacer transferencias de modo facil y rápido. Tambien te permite ver tu historial de transacciones. 
+
+
+### Manage your balances / Gestiona tus balances
+
+
+<img width="450" alt="Solana_STS_Shyft_Token_service_app_para_gestionar_y_transferir_cryptoactivos_en_Solana_Balances - copia" src="https://github.com/Juan-Fuente-T/solana_dapp_HeavyDutyBuilders/assets/127140423/73760c62-e348-4f23-bfa9-1d0cd84a573b">
+
+
+### Make transactions / Realiza transacciones
+
+
+<img width="450" alt="Solana_STS_Shyft_Token_service_app_para_gestionar_y_transferir_cryptoactivos_en_Solana-Transferencia - copia" src="https://github.com/Juan-Fuente-T/solana_dapp_HeavyDutyBuilders/assets/127140423/23a67d96-f18d-4c04-b9f8-ac2c38e45e9e">
+
+
+### Manage your transaction history / Maneja tu historial de transacciones
+
+
+<img width="450" alt="Solana_STS_Shyft_Token_service_app_para_gestionar_y_transferir_cryptoactivos_en_Solana_trasacciones - copia" src="https://github.com/Juan-Fuente-T/solana_dapp_HeavyDutyBuilders/assets/127140423/d604dc9a-ede8-4833-a8c4-7babe49c1b07">
+
+
+
+## Realizada con Javascript - Angular - Nx
+
+
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
