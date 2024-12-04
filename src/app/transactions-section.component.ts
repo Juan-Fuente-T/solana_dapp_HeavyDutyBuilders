@@ -11,28 +11,29 @@ import { ShyftApiService } from './shyft-api.service';
   imports: [MatTableModule, MatCard, DatePipe],
   standalone: true,
   template: `
-    <mat-card class="mx-auto  w-[700px] px-4 py-8">
-      <h2 class="text-center text-3xl text-slate-200 mb-4">Historial de Transacciones</h2>
+      <mat-card class="w-11/12 md:w-[700px] m-auto py-2 px-4 py-8">
+    <h2 class="text-center text-lg lg:text-3xl text-slate-200 mb-4">Historial de Transacciones</h2>
 
-      @if (!transactions()) {
-        <p class="text-center text-xl font-bold text-slate-700  px-32 py-8 bg-slate-200 rounded-[4px]" >Conecta tu wallet para ver las transacciones.</p>
-      } @else if (transactions()?.length === 0) {
-        <p class="text-center text-xl ">No hay transacciones disponibles.</p>
-      } @else {
-        <table mat-table [dataSource]="transactions() ?? []">
-          <ng-container matColumnDef="type">
-            <th mat-header-cell *matHeaderCellDef>Type</th>
-            <td mat-cell *matCellDef="let element">{{ element.type }}</td>
-          </ng-container>
+    @if (!transactions()) {
+      <p class="text-center text-lg lg:text-xl font-bold text-slate-700 px-8 py-8 mx-auto bg-slate-200 rounded-[4px]">Conecta tu wallet para ver las transacciones.</p>
+    } @else if (transactions()?.length === 0) {
+      <p class="text-center text-lg lg:text-xl font-bold text-slate-700 px-8 py-8 mx-auto bg-slate-200 rounded-[4px]">No hay transacciones disponibles.</p>
+    } @else {
+      <table mat-table [dataSource]="transactions() ?? []" class="min-w-full">
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef>Type</th>
+          <td mat-cell *matCellDef="let element">{{ element.type }}</td>
+        </ng-container>
 
-          <ng-container matColumnDef="timestamp">
-            <th mat-header-cell *matHeaderCellDef>Timestamp</th>
-            <td mat-cell *matCellDef="let element">{{ element.timestamp | date: 'dd/MM/yy HH:mm:ss' }}</td></ng-container>
+        <ng-container matColumnDef="timestamp">
+          <th mat-header-cell *matHeaderCellDef>Timestamp</th>
+          <td mat-cell *matCellDef="let element">{{ element.timestamp | date: 'dd/MM/yy HH:mm:ss' }}</td>
+        </ng-container>
 
-          <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef>Status</th>
-            <td mat-cell *matCellDef="let element">{{ element.status }}</td>
-          </ng-container>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+        </ng-container>
 
         <!--
         result: {

@@ -11,6 +11,25 @@ export class ShyftApiService {
   //private readonly mint = '7EYnhQoR9YM3N7UoaKRoA44Uy8JeaZV3qyouov87awMs';
 
   //private readonly _mint = '7EYnhQoR9YM3N7UoaKRoA44Uy8JeaZV3qyouov87awMs';
+
+  // private mockAccountResponse = { balance: 100, info: { image: 'https://example.com/token-image.png' } };
+  // private mockSolBalanceResponse = { balance: 1.5 };
+  // private mockTransactionsResponse = [
+  //   { status: 'success', type: 'transfer', timestamp: '2024-12-04T12:00:00Z' },
+  //   { status: 'pending', type: 'transfer', timestamp: '2024-12-03T15:30:00Z' }
+  // ];
+  // private mockAllTokensResponse = [
+  //   {
+  //     address: 'TOKEN1_ADDRESS',
+  //     balance: 50,
+  //     info: { name: 'Token1', symbol: 'T1', image: 'https://example.com/token1.png' }
+  //   },
+  //   {
+  //     address: 'TOKEN2_ADDRESS',
+  //     balance: 100,
+  //     info: { name: 'Token2', symbol: 'T2', image: 'https://example.com/token2.png' }
+  //   }
+  // ];
   
   getEndpoint(){
     const url = new URL('https://rpc.shyft.to');
@@ -34,6 +53,7 @@ export class ShyftApiService {
         result: { balance: number; info: { image: string } };
       }>(url.toString(), { headers: this._header })
       .pipe(map((response) => response.result));
+    // return of(this.mockAccountResponse);
   }
 
   getSolBalance(publicKey2: string | undefined | null) {
@@ -52,6 +72,8 @@ export class ShyftApiService {
       result: { balance: number };
     }>(url.toString(), { headers: this._header })
     .pipe(map((response) => response.result));
+
+  // return of(this.mockSolBalanceResponse);
   }
 
 
@@ -87,6 +109,7 @@ export class ShyftApiService {
         }[];
       }>(url.toString(), { headers: this._header })
       .pipe(map((response) => response.result));
+    // return of(this.mockTransactionsResponse);
   }
   
   getAllTokens(publicKey: string | undefined | null) {

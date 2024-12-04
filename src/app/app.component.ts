@@ -27,8 +27,8 @@ import { TransferModalComponent } from './transfer-modal.component';
   template: `
     <header class=" px-4 py-4 pt-4 pb-8 relative">
     <div class="flex flex-direction-row justify-between items-center">
-    <img src="assets/logo.png" alt="Logo" class="w-80 h-16">
-    <div class="flex justify-center mb-4">
+    <img src="assets/logo.png" alt="Logo" class="w-40 md:w-80 h-16">
+    <div class="flex justify-center items-center mb-4">
       <hd-wallet-multi-button class="mt-4 mb-4"></hd-wallet-multi-button>
     </div>
   </div> 
